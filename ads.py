@@ -6,7 +6,6 @@ from io import BytesIO
 from os import scandir, mkdir, walk
 from os.path import isdir, basename
 from shutil import copytree, make_archive, rmtree
-from random import shuffle
 
 parser = ArgumentParser(description='Downloads and distributes assignment submissions to teaching assistents.')
 parser.add_argument('path', type=str, help='The path to the assignment zip.')
@@ -43,7 +42,6 @@ def divide_assignments(dir_path, names, dest_path):
     dirs = [d for d in scandir(dir_path)]
     print("Dividing {} submissions in a randomized order between {} TAs...".format(len(dirs), n))
     groups = collapse_prefixes_to_groups(dirs)
-    shuffle(groups)
     for i, g in enumerate(groups):
         for member in g:
             batches[i%n].append(member)
